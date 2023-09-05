@@ -1,0 +1,77 @@
+.modal, #modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 13% auto;
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    width: 80%;
+    height: 59%;
+    max-width: 600px;
+    font-size: 12px;
+}
+
+#curse {
+    overflow: hidden;
+}
+
+#cursor {
+    margin: 10% auto;
+    height: 70%;
+}
+
+.modal-content input {
+    width: 50%;
+}
+
+#modal-content {
+    background-color: #fefefe;
+    margin: 12% auto;
+    height: 55%;
+    width: 50%;
+    padding: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    max-width: 600px;
+    font-size: 12px;
+}
+
+#close {
+    display: none;
+}
+
+option {
+    font-size: 12px;
+}
+
+.close-button, #close-button {
+    color: red;
+    float: right;
+    position: relative;
+    right: -15px;
+    top: -20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.no-results-message {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | EmbraceHer</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./modal.css">
+    <link rel="stylesheet" href="./authentication.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="shortcut icon" href="./embrace.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montez&family=Poppins&family=Tilt+Prism&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <h3><a href="./dashboard.html">EmbraceHer</a></h3>
+        <div class="admin">
+            <div id="adminIcon">
+                <a href="./profile.html">
+                    <img src="./user.png" alt="admin icon" id="adminImg">
+                </a>
+            </div>
+            <div class="admin-title">
+                <p id="ad-name">Loading level...</p>
+                <p id="ad-email">loading email...</p>
+            </div>
+        </div>
+    </nav>
+    <aside>
+        <ul>
+            <li><i class="fas fa-tachometer-alt"></i><a href="./dashboard.html">Dashboard</a></li>
+            <li><i class="fas fa-user"></i><a href="./users.html">Users</a></li>
+            <li><i class="fas fa-cart-plus"></i><a href="./courses.html">Courses</a></li>
+            <li><i class="fas fa-notes-medical"></i><a href="./health-tips.html">Health Tips</a></li>
+            <li><i class="fas fa-thumbs-up"></i><a href="./recommendation.html">Recommendation</a></li>
+            <li><i class="fas fa-dumbbell"></i><a href="./weight-loss.html">Weight Loss</a></li>
+        </ul>
+        <button type="button" id="admin-btn">Add an admin</button>
+    </aside>
+    <section class="main">
+        <div class="course-head">
+            <h2>Update Profile</h2>
+        </div>
+        <div id="modal">
+            <div id="modal-content">
+                <span id="close-button" style="display: none;">×</span>
+                <form id="admin-form">
+                    <h1>ADD ADMIN <br><span>Fill in the admin details.</span></h1>
+                    <section class="inputBox">
+                        <input type="email" name="" id="admin-email" required>
+                        <span>Email address</span>
+                    </section>
+                    <section class="inputBox">
+                        <input type="number" min='1' max='10' name="" id="admin-level" required>
+                        <span>Admin level <b style="color: red; font-size: 10px;">(btw 1 and 10)</b></span>
+                    </section>
+                    <section class="inputBox">
+                        <input type="password" name="" id="admin-pwd" required>
+                        <span>Password</span>
+                    </section>
+                    <div>
+                        <button type="submit" id="signup">SIGNUP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <main>
+            <div class="edit-name">
+                <p><b>Username:</b> Mr. Alex Admin</p>
+                <i class="fas fa-pen" title="Edit"></i>
+            </div>
+            <div class="edit-name">
+                <p><b>Password:</b> ****************</p>
+                <i class="fas fa-pen" title="Edit"></i>
+            </div>
+            <button class="edit-save" title="Update">Update</button>
+        </main>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        // Get the token from localStorage
+        const token = sessionStorage.getItem('token');
+
+        console.log("Token from sessionStorage:", token);
+
+        if (token) {
+            const apiUrl = "https://embraceher.onrender.com";
+            const endpoint = "/api/v1/admin/me";
+            const url = apiUrl + endpoint;
+
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Request failed with status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(user => {
+                console.log("User Data:", user);
+                const adName = document.getElementById('ad-name');
+                const adEmail = document.getElementById('ad-email');
+
+                adName.innerHTML = 'Admin' + ' ' + '<b>' + 'Level' + ' ' + user.data.level + '</b>';
+                adEmail.innerHTML = user.data.email;
+                adEmail.style.fontSize = '12px';
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    });
+    </script>
+
+    <script src="./modal.js"></script>
+
+</body>
+</html>
