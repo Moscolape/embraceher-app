@@ -29,7 +29,7 @@
     </nav>
     <aside>
         <ul>
-            <li id="index"><i class="fas fa-tachometer-alt"></i><a href="./dashboard.html">Dashboard</a></li>
+            <li style="font-weight: bolder"><i class="fas fa-tachometer-alt"></i><a href="./dashboard.html">Dashboard</a></li>
             <li><i class="fas fa-user"></i><a href="./users.html">Users</a></li>
             <li><i class="fas fa-cart-plus"></i><a href="./courses.html">Courses</a></li>
             <li><i class="fas fa-notes-medical"></i><a href="./health-tips.html">Health Tips</a></li>
@@ -92,17 +92,25 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        function handleLogout () {
+        function handleLogout() {
             const shouldLogout = window.confirm("Are you sure you want to log out?");
             if (shouldLogout) {
+                // Remove the session token
                 sessionStorage.removeItem('token');
-                window.history.replaceState(null, '', './index.html')
-                window.location.href = './index.html'
+                // Redirect to the login page
+                window.location.href = './index.html';
             }
         }
+
         const logout = document.getElementById('log-out');
         logout.addEventListener('click', handleLogout);
-    })
+
+        const protectedPages = ['./courses.html', './dashboard.html', './health-tips.html', './recommendation.html', './users.html', './weight-loss.html', './profile.html'];
+
+        if (protectedPages.includes(window.location.pathname) && !sessionStorage.getItem('token')) {
+            window.location.href = './index.html';
+        }
+    });
     </script>
     <script src="./stats.js"></script>
     <script src="./modal.js"></script>
