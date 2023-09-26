@@ -62,9 +62,10 @@
                         <input type="number" min='1' max='10' name="" min="1" max="10" id="admin-level" required>
                         <span>Admin level <b style="color: red; font-size: 10px;">(btw 1 and 10)</b></span>
                     </section>
-                    <section class="inputBox">
-                        <input type="password" name="" id="admin-pwd" required>
+                    <section class="inputBox" style="position: relative; width: 70%;">
+                        <input type="password" name="" id="admin-pwd" style="width: 100%;" required>
                         <span>Password</span>
+                        <i class="fas fa-eye" id="eye" style="position: absolute; right: 0.5rem; top: 0.6rem; cursor: pointer;"></i>
                     </section>
                     <div>
                         <button type="submit" id="signup">SIGNUP</button>
@@ -146,7 +147,8 @@
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
-                <div id="loading" style="display: none;">Loading...</div
+                <div id="loading" style="display: none;">Loading...</div>
+                <div id="no-loading" style="display: none;">No records found!!</div>
             </table>
         </main>
     </section>
@@ -246,7 +248,8 @@
                 alert('Course record has been successfully updated');
                 console.log("Course record updated", updatedRecord);
                 const modal = document.querySelector(".modal");
-                modal.style.display = "none"; // Close the modal after updating
+                modal.style.display = "none";
+                window.location.reload(); // Close the modal after updating
             })
             .catch(error => {
                 console.error("Error:", error);
@@ -293,6 +296,11 @@
             .then(allcourses => {
                 console.log("All Courses:", allcourses);
                 const table = document.getElementById('user-table');
+                const noloadingComponent = document.getElementById('no-loading');
+                
+                if (allcourses.count === 0) {
+                    noloadingComponent.style.display = 'block';
+                }
 
                 // Hide loading component after fetching
                 loadingComponent.style.display = 'none';
@@ -403,6 +411,7 @@
                                 .then(user => {
                                     alert('Course has been successfully deleted');
                                     console.log("Course deleted");
+                                    window.location.reload();
                                 })
                                 .catch(error => {
                                     console.error("Error:", error);
@@ -469,7 +478,8 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('Course record has been successfully added');
             console.log("Course record added", addRecord);
             const modal2 = document.querySelector(".modal2");
-            modal2.style.display = "none"; 
+            modal2.style.display = "none";
+            window.location.reload();
         })
         .catch(error => {
             console.error("Error:", error);
@@ -514,6 +524,30 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = './no-access.html';
         }
     })
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = sessionStorage.getItem('token');
+        if (!token ) {
+            window.location.href = './index.html';
+        }
+    })
+    </script>
+    <script>
+        const passwordInput = document.getElementById("admin-pwd");
+        const eyeIcon = document.getElementById("eye");
+
+        eyeIcon.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        });
     </script>
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script> 
     <script src="./filter.js"></script>

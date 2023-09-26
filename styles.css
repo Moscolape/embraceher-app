@@ -119,7 +119,7 @@ aside ul li a:hover {
 }
 
 
-#loading {
+#loading, #no-loading {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -141,7 +141,10 @@ aside ul li a:hover {
 #search, #search-user {
     outline: none;
     height: 25px;
+    width: 15rem;
+    padding: 15px 5px;
     margin: 0 3px;
+    border-radius: 5px;
 }
 
 ::placeholder {

@@ -79,6 +79,7 @@ loginForm.addEventListener('submit', (event) => {
         
         // Get the user's token
         const token = user.token;
+        sessionStorage.setItem('token', token);
 
         // Redirect to another page and pass the token as a query parameter
         window.location.href = `dashboard.html?token=${token}`;

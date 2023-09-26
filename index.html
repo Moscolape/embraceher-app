@@ -21,9 +21,10 @@
                 <i class="fas fa-user" id="ad-user"></i>
                 <input type="email" name="" id="ad-input" placeholder="Enter email address" required>
             </div>
-            <div>
+            <div style="position: relative; width: 90%;">
                 <i class="fas fa-lock" id="lock"></i>
-                <input type="password" name="" id="ad-lock" placeholder="Enter password" required>
+                <input type="password" name="" id="ad-lock" placeholder="Enter password" style="width: 100%;" required>
+                <i class="fas fa-eye" id="eye" style="position: absolute; right: 0.5rem; top: 1.1rem; cursor: pointer;"></i>
             </div>
             <div>
                 <button type="submit" id="login">Login</button>
@@ -39,6 +40,22 @@
             window.location.href = './no-access.html';
         }
     })
+    </script>
+    <script>
+        const passwordInput = document.getElementById("ad-lock");
+        const eyeIcon = document.getElementById("eye");
+
+        eyeIcon.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        });
     </script>
     <script src="./login.js"></script>
 </body>

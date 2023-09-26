@@ -58,9 +58,10 @@
                         <input type="number" min='1' max='10' name="" id="admin-level" required>
                         <span>Admin level <b style="color: red; font-size: 10px;">(btw 1 and 10)</b></span>
                     </section>
-                    <section class="inputBox">
-                        <input type="password" name="" id="admin-pwd" required>
+                    <section class="inputBox" style="position: relative; width: 70%;">
+                        <input type="password" name="" id="admin-pwd" style="width: 100%;" required>
                         <span>Password</span>
+                        <i class="fas fa-eye" id="eye" style="position: absolute; right: 0.5rem; top: 0.6rem; cursor: pointer;"></i>
                     </section>
                     <div>
                         <button type="submit" id="signup">SIGNUP</button>
@@ -128,7 +129,8 @@
                     <th>Action</th>
                 </tr>
             </table>
-            <div id="loading" style="display: none;">Loading...</div
+            <div id="loading" style="display: none;">Loading...</div>
+            <div id="no-loading" style="display: none;">No records found!!</div>
         </main>
     </section>
 
@@ -226,7 +228,8 @@
                 alert('Health tips record has been successfully updated');
                 console.log("Health tips record updated", updatedRecord);
                 const modal = document.querySelector(".modal");
-                modal.style.display = "none"; // Close the modal after updating
+                modal.style.display = "none";
+                window.location.reload();
             })
             .catch(error => {
                 console.error("Error:", error);
@@ -273,6 +276,11 @@
             .then(allhealth => {
                 console.log("All health tips:", allhealth);
                 const table = document.getElementById('user-table');
+                const noloadingComponent = document.getElementById('no-loading');
+                
+                if (allhealth.count === 0) {
+                    noloadingComponent.style.display = 'block';
+                }
 
                 // Hide loading component after fetching
                 loadingComponent.style.display = 'none';
@@ -380,6 +388,7 @@
                                 .then(user => {
                                     alert('Health tip has been successfully deleted');
                                     console.log("Health tip deleted");
+                                    window.location.reload();
                                 })
                                 .catch(error => {
                                     console.error("Error:", error);
@@ -403,9 +412,9 @@
                             const titleText = titleCell.textContent.toLowerCase();
 
                             if (titleText.includes(searchText)) {
-                                row.style.display = ''; // Show the row if it contains the search text
+                                row.style.display = '';
                             } else {
-                                row.style.display = 'none'; // Hide the row if it doesn't contain the search text
+                                row.style.display = 'none';
                             }
                         }
                     });
@@ -465,7 +474,8 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('Health tips record has been successfully added');
             console.log("Health tips record added", addRecord);
             const modal2 = document.querySelector(".modal2");
-            modal2.style.display = "none"; // Close the modal after updating
+            modal2.style.display = "none";
+            window.location.reload(); // Close the modal after updating
         })
         .catch(error => {
             console.error("Error:", error);
@@ -508,6 +518,30 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = './no-access.html';
         }
     })
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            window.location.href = './index.html';
+        }
+    })
+    </script>
+    <script>
+        const passwordInput = document.getElementById("admin-pwd");
+        const eyeIcon = document.getElementById("eye");
+
+        eyeIcon.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        });
     </script>
     <script src="./upload.js"></script>
     <script src="./modal.js"></script>
