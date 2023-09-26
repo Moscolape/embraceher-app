@@ -498,13 +498,36 @@
     })
     </script>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const mobileScreenWidth = 768;
+        // Add an overlay to cover the entire page
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // Semi-transparent white background
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        overlay.style.zIndex = 1000;
 
-        if (window.innerWidth <= mobileScreenWidth) {
-            window.location.href = './no-access.html';
+        document.body.appendChild(overlay);
+
+        // Function to remove the overlay
+        function removeOverlay() {
+            overlay.style.display = 'none';
         }
-    })
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const token = sessionStorage.getItem('token');
+            if (!token ) {
+                // Redirect to index.html
+                window.location.href = './index.html';
+            } else {
+                // Remove the loading overlay once the session check is complete
+                removeOverlay();
+            }
+        });
     </script>
     <script>
     document.addEventListener("DOMContentLoaded", function () {
