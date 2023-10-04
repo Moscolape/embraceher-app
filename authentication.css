@@ -55,7 +55,7 @@ form span, label {
 }
 
 #update-form input:focus, #update-form2 input:focus {
-    border: 1px solid #13A7E7;
+    border: 1px solid #A987C4;
 }
 
 form div {
@@ -94,19 +94,19 @@ form section input {
 }
 
 .inputBox input:valid ~ span, .inputBox input:focus ~ span {
-    color: #13A7E7;
+    color: #A987C4;
     transform: translateX(0px) translateY(-15px);
     font-size: 0.8em;
     letter-spacing: 0.1em;
 }
 
 form div input:focus {
-    outline: 1px solid #13A7E7;
-    border: 1px solid #13A7E7;
+    outline: 1px solid #A987C4;
+    border: 1px solid #A987C4;
 }
 
 #login {
-    background: #13A7E7;
+    background: #A987C4;
     color: white;
     border: none;
     padding: 15px;
@@ -118,7 +118,7 @@ form div input:focus {
 }
 
 #signup {
-    background: #13A7E7;
+    background: #A987C4;
     color: white;
     border: none;
     padding: 8px;

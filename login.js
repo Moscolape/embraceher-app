@@ -1,7 +1,7 @@
 // Function to handle focus and blur events for input elements
 function handleInputFocusBlur(inputElement, iconElement) {
     inputElement.addEventListener('focus', () => {
-        iconElement.style.color = '#13A7E7';
+        iconElement.style.color = '#A987C4';
     });
 
     inputElement.addEventListener('blur', () => {

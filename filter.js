@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleFilterClick(event) {
     resetFilterButtons();
     const selectedButton = event.target;
-    selectedButton.style.backgroundColor = "#13A7E7";
+    selectedButton.style.backgroundColor = "#A987C4";
     selectedButton.style.color = "white";
     selectedButton.style.border = "none";
 

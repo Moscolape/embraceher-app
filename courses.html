@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav>
-        <h3><a href="./dashboard.html">EmbraceHer</a></h3>
+        <a href="./dashboard.html"><img src="./logo.png" alt="logo" id="logo"></a>
         <div class="admin">
             <div id="adminIcon">
                 <a href="./profile.html">
@@ -100,7 +100,7 @@
                         <label for="table-description">Description</label><br>
                         <textarea id="table-description" cols="55" rows="6" required></textarea><br><br>
                         <label for="table-image-src">ImageUrl</label><br>
-                        <span class="cloud" style="padding-right: 10px; cursor: pointer; color: #13a7e7;">Click to change photo</span><input type="text" id="table-image-src" required readonly><br><br>
+                        <span id="cloud" style="padding-right: 10px; cursor: pointer; color: #13a7e7;">Click to change photo</span><input type="text" id="table-image-src" required readonly><br><br>
                         <input type="hidden" name="" id="table-course-id">
                         <button type="submit" id="update" style="cursor: pointer;">Update</button>
                     </form>
@@ -132,7 +132,7 @@
                         <label for="table-description2">Description</label><br>
                         <textarea id="table-description2" cols="55" rows="6" required></textarea><br><br>
                         <label for="table-image-src2">ImageUrl</label><br>
-                        <span class="clou" style="padding-right: 10px; cursor: pointer; color: #13a7e7;">Click to pick a photo</span><input type="text" id="table-image-src2" required readonly><br><br>
+                        <span id="clou" style="padding-right: 10px; cursor: pointer; color: #13a7e7;">Click to pick a photo</span><input type="text" id="table-image-src2" required readonly><br><br>
                         <input type="hidden" name="" id="table-course-id2">
                         <button type="submit" id="update2" style="cursor: pointer;">Add Course</button>
                     </form>
@@ -533,7 +533,7 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.style.left = '0';
         overlay.style.width = '100%';
         overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // Semi-transparent white background
+        overlay.style.backgroundColor = 'rgba(255, 255, 255, 1)';
         overlay.style.display = 'flex';
         overlay.style.justifyContent = 'center';
         overlay.style.alignItems = 'center';
@@ -573,7 +573,37 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     </script>
-    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script> 
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script>
+    const myWidget = cloudinary.createUploadWidget({
+        cloudName: 'sugar-jones', 
+        uploadPreset: 'elfjbjvn'}, (error, result) => { 
+            if (!error && result && result.event === "success") { 
+                document.getElementById('table-image-src2').value = result.info.secure_url; 
+            } else {
+                console.log('error:', error)
+            }
+        }
+    );
+    document.getElementById("clou").addEventListener("click", function(){
+        myWidget.open();
+    }, false);
+    </script>
+    <script>
+    const myWidget2 = cloudinary.createUploadWidget({
+        cloudName: 'sugar-jones', 
+        uploadPreset: 'elfjbjvn'}, (error, result) => { 
+            if (!error && result && result.event === "success") { 
+                document.getElementById('table-image-src').value = result.info.secure_url; 
+            } else {
+                console.log('error:', error)
+            }
+        }
+    );
+    document.getElementById("cloud").addEventListener("click", function(){
+        myWidget2.open();
+    }, false);
+    </script>
     <script src="./filter.js"></script>
     <script src="./upload.js"></script>
     <script src="./modal.js"></script>

@@ -16,17 +16,21 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    background: url("./circle.jpg");
-    background-size: cover;
-    color: white;
+    background-color: white;
+    box-shadow: 0px 0px 10px lightgray;
     position: fixed;
     z-index: 100;
     width: 100%;
 }
 
-nav h3 a {
+nav a {
     text-decoration: none;
     color: unset;
+}
+
+#logo {
+    width: 10rem;
+    height: 5rem;
 }
 
 .admin {
@@ -58,14 +62,14 @@ aside {
     padding-right: 20px;
     font-size: 14px;
     /* background: red; */
-    border-right: 1px solid #13a7e7;
+    border-right: 1px solid #A987C4;
 }
 
 #admin-btn, #log-out {
     position: absolute;
     bottom: 5rem;
     left: 2.7rem;
-    background: #13A7E7;
+    background: #A987C4;
     color: white;
     border: none;
     padding: 15px;
@@ -89,7 +93,7 @@ aside ul li {
 }
 
 aside ul li i {
-    color: #04A6FB;
+    color: #A987C4;
     display: inline-block;
     margin-right: 10px;
     width: 15px;
@@ -133,7 +137,7 @@ aside ul li a:hover {
 }
 
 #all {
-    background-color: #13A7E7;
+    background-color: #A987C4;
     color: white;
     border: none;
 }
@@ -168,7 +172,7 @@ aside ul li a:hover {
 }
 
 .filter-button.active {
-  background-color: #13a7e7;
+  background-color: #A987C4;
   color: white;
   border: none;
 }
@@ -183,7 +187,7 @@ aside ul li a:hover {
 }
 
 .bar {
-    fill: #15A8ED;
+    fill: #A987C4;
 }
 
 #chart {
@@ -255,7 +259,7 @@ td {
 }
 
 .fa-pen {
-    color: #13A7E7;
+    color: #A987C4;
     font-size: 14px;
     cursor: pointer;
     margin-left: 5px;
@@ -266,7 +270,7 @@ td {
 } */
 
 .fa-trash {
-    color: #fa0202;
+    /* color: #fa0202; */
     font-size: 14px;
     cursor: pointer;
     margin-left: 15px;
@@ -287,7 +291,7 @@ td {
     width: 10%;
     height: 30px;
     border: none;
-    background: #04A6FB;
+    background: #A987C4;
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -304,7 +308,7 @@ td {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background-color: #13A7E7;
+    background-color: #A987C4;
     display: inline-flex;
     align-items: center;
     justify-content: center;

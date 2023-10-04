@@ -57,7 +57,7 @@ option {
 }
 
 .close-button, #close-button, .close-button2 {
-    color: red;
+    /* color: red; */
     float: right;
     position: relative;
     right: -15px;
