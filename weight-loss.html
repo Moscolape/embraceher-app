@@ -39,6 +39,14 @@
         <button type="button" id="log-out" title="log out">Logout</button>
     </aside>
     <section class="main" id="mainnest">
+        <!-- Modal for success message -->
+        <div class="success-modal" style="position: fixed; top: 0; left: 0; z-index: 100; width: 100%; height: 100%; background-color: #00000080; display: none;">
+            <div class="success-modal-content" style="text-align: center; background-color: white; width: 30%; padding: 30px; box-shadow: 2px 2px 30px lightgray; border-radius: 10px; margin: auto; margin-top: 20%;">
+                <span class="close-success">×</span>
+                <img src="check.jpg" alt="check" style="width: 50px;">
+                <h3 style="color: black;">New Weightloss Routine Added Successfully!</h3>
+            </div>
+        </div>
         <div class="course-head">
             <h2>Weight Loss</h2>
             <div class="filter-options">
@@ -462,11 +470,25 @@
                 return response.json();
             })
             .then(addWeight => {
-                alert('Weight loss record has been successfully added');
-                console.log("Weight loss record added", addWeight);
+                // Show success modal
+                const successModal = document.querySelector(".success-modal");
+                successModal.style.display = "block";
+
+                // Select the close button in the modal
+                const closeButton = document.querySelector(".close-success");
+
+                // Function to close the modal
+                function closeModal() {
+                    successModal.style.display = "none";
+                    window.location.reload();
+                }
+
+                // Add click event listener to close button
+                closeButton.addEventListener("click", closeModal);
+
+                // hide add course modal
                 const modal2 = document.querySelector(".modal2");
                 modal2.style.display = "none";
-                window.location.reload();
             })
             .catch(error => {
                 console.error("Error:", error);

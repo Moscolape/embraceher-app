@@ -39,6 +39,14 @@
         <button type="button" id="log-out" title="log out">Logout</button>
     </aside>
     <section class="main" id="mainnest">
+        <!-- Modal for success message -->
+        <div class="success-modal" style="position: fixed; top: 0; left: 0; z-index: 100; width: 100%; height: 100%; background-color: #00000080; display: none;">
+            <div class="success-modal-content" style="text-align: center; background-color: white; width: 30%; padding: 30px; box-shadow: 2px 2px 30px lightgray; border-radius: 10px; margin: auto; margin-top: 20%;">
+                <span class="close-success">×</span>
+                <img src="check.jpg" alt="check" style="width: 50px;">
+                <h3 style="color: black;">New Course Added Successfully!</h3>
+            </div>
+        </div>
         <div class="course-head">
             <h2>Courses</h2>
             <div class="filter-options">
@@ -82,10 +90,10 @@
                         <input type="text" id="table-title" required><br><br>
                         <label for="table-category">Category</label><br>
                         <select id="table-category" required>
-                            <option value="">Select category:</option>
-                            <option value="beginners">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="expert">Expert</option>
+                            <option value="">Select category</option>
+                            <option value="Beginners">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Expert">Expert</option>
                         </select><br><br>
                         <label for="table-subcategory">SubCategory</label><br>
                         <select id="table-subcategory" required>
@@ -114,10 +122,10 @@
                         <input type="text" id="table-title2" required><br><br>
                         <label for="table-category2">Category</label><br>
                         <select id="table-category2" required>
-                            <option value="">Select category:</option>
-                            <option value="beginners">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="expert">Expert</option>
+                            <option value="">Select category</option>
+                            <option value="Beginners">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Expert">Expert</option>
                         </select><br><br>
                         <label for="table-subcategory2">SubCategory</label><br>
                         <select id="table-subcategory2" required>
@@ -229,7 +237,7 @@
                 description: updatedDescription,
             };
 
-            // Make a PUT request to update the weight loss record
+            // Make a PUT request to update the course record
             fetch(apiUrl + updateEndpoint, {
                 method: "PUT",
                 headers: {
@@ -415,6 +423,7 @@
                                 })
                                 .catch(error => {
                                     console.error("Error:", error);
+                                    alert(error.message);
                                 });
                             }
                             tableRow.remove();
@@ -430,67 +439,84 @@
     </script>
 
     <script>
-// Add Course
-document.addEventListener("DOMContentLoaded", function () {
-    // Function to update the weight loss record
-    function addCourse(event) {
-        event.preventDefault();
+        // Add Course
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to update the weight loss record
+            function addCourse(event) {
+                event.preventDefault();
 
-        const token = sessionStorage.getItem('token');
+                const token = sessionStorage.getItem('token');
 
-        if (token) {
-        // Construct the API endpoint for updating the weight loss record
-        const apiUrl = `https://embraceher.onrender.com`;
-        const updateEndpoint = `/api/v1/course/`;
+                if (token) {
+                // Construct the API endpoint for updating the weight loss record
+                const apiUrl = `https://embraceher.onrender.com`;
+                const updateEndpoint = `/api/v1/course/`;
 
-        // Get the updated data from the form fields
-        const addName = document.getElementById("table-title2").value;
-        const addCategory = document.getElementById("table-category2").value;
-        const addSubCategory = document.getElementById("table-subcategory2").value;
-        const addDescription = document.getElementById("table-description2").value;
-        const addImg = document.getElementById("table-image-src2").value;
+                // Get the updated data from the form fields
+                const addName = document.getElementById("table-title2").value;
+                const addCategory = document.getElementById("table-category2").value;
+                const addSubCategory = document.getElementById("table-subcategory2").value;
+                const addDescription = document.getElementById("table-description2").value;
+                const addImg = document.getElementById("table-image-src2").value;
 
-        // Create a payload with the added data
-        const payload = {
-          name: addName,
-          category: addCategory,
-          subCategory: addSubCategory,
-          description: addDescription,
-          imgUrl: addImg,
-        };
+                // Create a payload with the added data
+                const payload = {
+                name: addName,
+                category: addCategory,
+                subCategory: addSubCategory,
+                description: addDescription,
+                imgUrl: addImg,
+                };
 
-        // Make a POST request to add course
-        fetch(apiUrl + updateEndpoint, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json", // Specify JSON content type
-            },
-            body: JSON.stringify(payload), // Convert payload to JSON
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Request failed with status: ${response.status}`);
+                // Make a POST request to add course
+                fetch(apiUrl + updateEndpoint, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json", // Specify JSON content type
+                    },
+                    body: JSON.stringify(payload), // Convert payload to JSON
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            throw new Error(errorData.msg || 'Failed to add course');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(response => {
+                    // Show success modal
+                    const successModal = document.querySelector(".success-modal");
+                    successModal.style.display = "block";
+
+                    // Select the close button in the modal
+                    const closeButton = document.querySelector(".close-success");
+
+                    // Function to close the modal
+                    function closeModal() {
+                        successModal.style.display = "none";
+                        window.location.reload();
+                    }
+
+                    // Add click event listener to close button
+                    closeButton.addEventListener("click", closeModal);
+
+                    // hide add course modal
+                    const modal2 = document.querySelector(".modal2");
+                    modal2.style.display = "none";
+                })
+                .catch(error => {
+                    console.error('An error occurred during updating course:', error);
+                    alert(error.message);
+                });
             }
-            return response.json();
-        })
-        .then(addRecord => {
-            alert('Course record has been successfully added');
-            console.log("Course record added", addRecord);
-            const modal2 = document.querySelector(".modal2");
-            modal2.style.display = "none";
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    }
-    }
-    // Add an event listener to the "Add course" button in the modal
-    const addButton = document.getElementById("update2");
-    addButton.addEventListener("click", addCourse);
+            }
+            // Add an event listener to the "Add course" button in the modal
+            const addButton = document.getElementById("update2");
+            addButton.addEventListener("click", addCourse);
 
-});
+        });
     </script>
 
     <script>

@@ -56,7 +56,7 @@ option {
     font-size: 12px;
 }
 
-.close-button, #close-button, .close-button2 {
+.close-button, #close-button, .close-button2, .close-success {
     /* color: red; */
     float: right;
     position: relative;
